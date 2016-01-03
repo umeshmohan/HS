@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
                                                    vector<cv::Point>(4));
 
     cout << "# Video file name: " << in_file_name << endl;
+    cout << "# Total frames: " << MAX_FRAMES << endl;
     cout << "# frame number,pt1.x,pt1.y,pt2.x,pt2.y,pt3.x,pt3.y,pt4.x,pt4.y";
     cout << endl << "# Blob detection parameters set at frame number ";
     cout << start_from << endl;
@@ -58,6 +59,7 @@ int main(int argc, char *argv[])
         auto_track_progress = AutoTrack(video_in_capture, auto_track_progress, 
                                         detected_point_list);
     }
+    cout << "Digitization done." << endl;
     video_in_capture.release();
     return 0;
 }
