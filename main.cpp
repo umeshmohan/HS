@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         auto_track_progress = AutoTrack(video_in_capture, auto_track_progress, 
                                         detected_point_list);
     }
-    cout << "Digitization done." << endl;
+    cout << "# Digitization done." << endl;
     video_in_capture.release();
     return 0;
 }
