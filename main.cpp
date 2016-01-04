@@ -1,6 +1,6 @@
 #include "BlobParam.hpp"
 #include "AutoTrack.hpp"
-#define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)]\n"
+#define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)] [MAX_DISTANCE(default=0.5r)] [DISPLAY_SCALE(default=0.7)]"
 using namespace std;
 
 cv::Mat GetFrame(cv::VideoCapture video_in_capture, int frame_number)
@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
     const string in_file_name = argv[1];
     int start_from;
     if (argc < 3) { start_from = 0; } else { start_from = atoi(argv[2]); }
+    if (argc < 4) { MAX_DISTANCE = 0.5; } else { MAX_DISTANCE = atof(argv[3]); }
+    if (argc < 4) { DISPLAY_SCALE = 0.7; } else { DISPLAY_SCALE = atof(argv[4]); }
     
     std::ios_base::openmode mode1 = ios_base::app; 
     ofstream out((in_file_name.substr(0,in_file_name.length()-3) 
