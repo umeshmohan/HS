@@ -1,6 +1,6 @@
 #include "BlobParam.hpp"
 #include "AutoTrack.hpp"
-#define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)] [MAX_DISTANCE(default=0.5r)] [DISPLAY_SCALE(default=0.7)]"
+#define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)] [MAX_DISTANCE(default=0.5r)] [DISPLAY_SCALE(default=0.7)]\n\n"
 using namespace std;
 float MAX_DISTANCE, DISPLAY_SCALE;
 
