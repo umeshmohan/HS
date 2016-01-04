@@ -13,6 +13,6 @@
 
 using namespace std;
 
-float MAX_DISTANCE, DISPLAY_SCALE;
+extern float MAX_DISTANCE, DISPLAY_SCALE;
 
 #endif
