@@ -2,6 +2,7 @@
 #include "AutoTrack.hpp"
 #define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)] [MAX_DISTANCE(default=0.5r)] [DISPLAY_SCALE(default=0.7)]"
 using namespace std;
+float MAX_DISTANCE, DISPLAY_SCALE;
 
 cv::Mat GetFrame(cv::VideoCapture video_in_capture, int frame_number)
 {
