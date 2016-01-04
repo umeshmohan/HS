@@ -13,14 +13,12 @@ class AutoTrackProgress
         BlobParams blob_params;
         bool analysis_complete;
         AutoTrackProgress(BlobParams blob_params, int MAX_frames, 
-                          int analyzed_till, 
-                          vector<cv::KeyPoint> previous_frame_key_point_list);
+                          int analyzed_till);
 };
 
 extern AutoTrackProgress auto_track_progress;
 
 AutoTrackProgress AutoTrack(cv::VideoCapture video, 
-    AutoTrackProgress auto_track_progress, 
-    vector<vector<cv::Point> > &detected_point_list);
+    AutoTrackProgress auto_track_progress);
 
 #endif
