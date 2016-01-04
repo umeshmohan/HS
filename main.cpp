@@ -47,8 +47,7 @@ int main(int argc, char *argv[])
                                                     start_from - 1));
     AutoTrackProgress auto_track_progress = AutoTrackProgress(blob_params,
                          MAX_FRAMES, start_from-1, blob_params.blobs_to_track);
-    auto_track_progress = AutoTrack(video_in_capture, auto_track_progress, 
-                                    detected_point_list);
+    auto_track_progress = AutoTrack(video_in_capture, auto_track_progress);
     while (!auto_track_progress.analysis_complete)
     {
         cv::Mat frame = GetFrame(video_in_capture, 
@@ -58,8 +57,7 @@ int main(int argc, char *argv[])
         auto_track_progress.blob_params = GetBlobParams(frame);
         auto_track_progress.previous_frame_key_point_list = 
             auto_track_progress.blob_params.blobs_to_track;
-        auto_track_progress = AutoTrack(video_in_capture, auto_track_progress, 
-                                        detected_point_list);
+        auto_track_progress = AutoTrack(video_in_capture, auto_track_progress);
     }
     cout << "# Digitization done." << endl;
     video_in_capture.release();
