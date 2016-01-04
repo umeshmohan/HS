@@ -28,7 +28,7 @@ vector<cv::KeyPoint> GetBlobsToTrack(vector<cv::KeyPoint> frame_key_point_list,
         {
             if (Distance(previous_frame_key_point_list[i].pt, 
                          frame_key_point_list[j].pt) 
-                <= previous_frame_key_point_list[i].size)
+                <= (previous_frame_key_point_list[i].size / 2) * MAX_DISTANCE)
             {
                 valid_blobs[number_of_valid_blobs_found] = 
                     frame_key_point_list[j];
@@ -84,9 +84,9 @@ AutoTrackProgress AutoTrack(cv::VideoCapture video,
             }
             cout << endl;
             cv::drawKeypoints(frame, valid_blobs, frame_display, 
-                              cv::Scalar(0, 255, 0), 
+                              cv::Scalar(255, 0, 0), 
                               cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-            cv::resize(frame_display, frame_display, cv::Size(), 0.7, 0.7);
+            cv::resize(frame_display, frame_display, cv::Size(), DISPLAY_SCALE, DISPLAY_SCALE);
             cv::imshow(WINDOW_AUTOTRACK, frame_display);
             stringstream message;
             message << "Analyzed " << auto_track_progress.analyzed_till << "/";
