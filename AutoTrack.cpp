@@ -48,8 +48,7 @@ vector<cv::KeyPoint> GetBlobsToTrack(vector<cv::KeyPoint> frame_key_point_list,
 const char* WINDOW_AUTOTRACK = "Auto tracking";
 
 AutoTrackProgress AutoTrack(cv::VideoCapture video, 
-                            AutoTrackProgress auto_track_progress, 
-                            vector<vector<cv::Point> > &detected_point_list)
+                            AutoTrackProgress auto_track_progress)
 {
     cv::Mat frame, frame_display;
     vector<cv::KeyPoint> frame_key_point_list, valid_blobs;
@@ -78,8 +77,6 @@ AutoTrackProgress AutoTrack(cv::VideoCapture video,
             {
                 auto_track_progress.previous_frame_key_point_list[i] = 
                                                                 valid_blobs[i];
-                detected_point_list[auto_track_progress.analyzed_till][i] = 
-                                                             valid_blobs[i].pt;
                 cout << "," << valid_blobs[i].pt.x <<","<< valid_blobs[i].pt.y;
             }
             cout << endl;
