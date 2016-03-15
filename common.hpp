@@ -1,6 +1,7 @@
 #ifndef __Common_included__
 #define __Common_included__
 
+#include "cmdline.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,5 +15,6 @@
 using namespace std;
 
 extern float MAX_DISTANCE, DISPLAY_SCALE;
+extern int BLOB_COLOR;
 
 #endif

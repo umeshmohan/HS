@@ -3,6 +3,7 @@
 #define USAGE "Usage:\nHSD <video_file> [start_from_frame_number(default=0)] [MAX_DISTANCE(default=0.5r)] [DISPLAY_SCALE(default=0.7)]\n\n"
 using namespace std;
 float MAX_DISTANCE, DISPLAY_SCALE;
+int BLOB_COLOR;
 
 cv::Mat GetFrame(cv::VideoCapture video_in_capture, int frame_number)
 {
@@ -18,12 +19,25 @@ cv::Mat GetFrame(cv::VideoCapture video_in_capture, int frame_number)
 
 int main(int argc, char *argv[])
 {
-    if (argc < 2) {cout << USAGE; return -1;}
-    const string in_file_name = argv[1];
-    int start_from;
-    if (argc < 3) { start_from = 0; } else { start_from = atoi(argv[2]); }
-    if (argc < 4) { MAX_DISTANCE = 0.5; } else { MAX_DISTANCE = atof(argv[3]); }
-    if (argc < 4) { DISPLAY_SCALE = 0.7; } else { DISPLAY_SCALE = atof(argv[4]); }
+    cmdline::parser a;
+    a.add<string>("file", 'f', "Input file for digitization", true, "");
+    a.add<int>("start-frame", 's', "Start digitizing from frame", false, 0);
+    a.add<float>("max-distance", 'd', "Maximum distance from previous frame for a blob to be considered same (multiple of radius of blob)", false, 0.5);
+    a.add<float>("display-scale", 'x', "Scale displayed frame", false, 0.6);
+    a.add<int>("blob-color", 'c', "Blob color for detection", false, 255, cmdline::oneof<int>(0, 255));
+    a.parse_check(argc, argv);
+
+    //if (argc < 2) {cout << USAGE; return -1;}
+    const string in_file_name = a.get<string>("file");
+    int start_from = a.get<int>("start-frame");
+    //if (argc < 3) { start_from = 0; } else { start_from = atoi(argv[2]); }
+    
+    //if (argc < 4) { MAX_DISTANCE = 0.5; } else { MAX_DISTANCE = atof(argv[3]); }
+    MAX_DISTANCE = a.get<float>("max-distance");
+    //if (argc < 5) { DISPLAY_SCALE = 0.7; } else { DISPLAY_SCALE = atof(argv[4]); }
+    DISPLAY_SCALE = a.get<float>("display-scale");
+    //if (argc < 6) { BLOB_COLOR=255; } else { BLOB_COLOR = atof(argv[5]); }
+    BLOB_COLOR = a.get<int>("blob-color");
     
     std::ios_base::openmode mode1 = ios_base::app; 
     ofstream out((in_file_name.substr(0,in_file_name.length()-3) 

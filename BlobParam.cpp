@@ -83,14 +83,14 @@ static void UpdateDisplay()
     cv::drawKeypoints(display_image, blobs_to_track, display_image, 
                       cv::Scalar(0, 255, 0), 
                       cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-    cv::resize(display_image, display_image, cv::Size(), 0.7, 0.7);
+    cv::resize(display_image, display_image, cv::Size(), DISPLAY_SCALE, DISPLAY_SCALE);
     cv::imshow(WINDOW_PARAM, display_image);
 }
 
 static void MouseClickHandler(int event, int x, int y, int, void*)
 {
     if (event != cv::EVENT_LBUTTONUP){return;}
-    int clicked_key_point_number = GetClickedKeyPoint(x/0.7, y/0.7);
+    int clicked_key_point_number = GetClickedKeyPoint(x/DISPLAY_SCALE, y/DISPLAY_SCALE);
     if (clicked_key_point_number == -1) {return;}
     cv::KeyPoint clicked_key_point = detected_blobs[clicked_key_point_number];
     for (int i=0; i<4; i++)
@@ -123,6 +123,7 @@ static void param_change(int, void*)
 static void ReCalculate()
 {
     params = BlobDetectorParams();
+    params.blobColor = BLOB_COLOR;
     detector = cv::SimpleBlobDetector::create(params);
     detected_blobs = DetectBlobs(image, detector);
     for (int i=0; i<4; i++)
