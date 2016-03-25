@@ -22,7 +22,8 @@ def readDataCSV(file_name, width, height):
                     data_dict[frame_number] = [float(i) 
                                                for i in line_contents[1:]]
     for frame_number in data_dict.keys():
-        data.append([frame_number] + rearrangePoints(data_dict[frame_number], width, height))
+        data.append([frame_number] + rearrangePoints(data_dict[frame_number], 
+                                                     width, height))
     return data
 
 def distanceFromBottomCenter(point, width, height):
@@ -33,16 +34,13 @@ def rearrangePoints(point_list, width, height):
     points_dict = {}
     for i in range(4):
         current_point = [point_list[i*2], point_list[(i*2)+1]]
-        points_dict.update({distanceFromBottomCenter(current_point, width, height):current_point})
+        points_dict.update({distanceFromBottomCenter(
+                                current_point, width, height):current_point})
     distance_list = points_dict.keys()
     distance_list.sort()
     rearranged_points_list = []
     for distance in distance_list:
         rearranged_points_list += points_dict[distance]
-    #print points_dict
-    #print distance_list
-    #print rearranged_points_list
-    #print
     return rearranged_points_list
 
 def resolution(s):
@@ -50,13 +48,18 @@ def resolution(s):
         w, h = map(int, s.split('x'))
         return w, h
     except:
-        raise argparse.ArgumentTypeError("Resolution must be <width>x<height>. E.g.: 1200x800")
+        raise argparse.ArgumentTypeError(
+                "Resolution must be <width>x<height>. E.g.: 1200x800")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Rearrange points in ascending order from bottom center of frame")
-    parser.add_argument('-d', '--data', help="Input data file from digitization", required=True, dest='data_file')
-    parser.add_argument('-o', '--output', help="Output rearranged data file", required=False, dest='output_file', default=None)
-    parser.add_argument('-r', '--resolution', help="Frame resolution", required=False, dest='resolution', default=(1200,800))
+    parser.add_argument('-d', '--data', help="Input data file from digitization", 
+                        required=True, dest='data_file')
+    parser.add_argument('-o', '--output', help="Output rearranged data file", 
+                        required=False, dest='output_file', default=None)
+    parser.add_argument('-r', '--resolution', help="Frame resolution", 
+                        required=False, dest='resolution', default=(1200,800), 
+                        type=resolution)
     args = parser.parse_args()
     
     data = readDataCSV(args.data_file, args.resolution[0], args.resolution[1])
@@ -67,7 +70,5 @@ if __name__ == "__main__":
     with open(output_file, 'w') as output_file_handle:
         out = csvwriter(output_file_handle, delimiter=',')
         out.writerows(data)
-
-
 
 # vim: set ai nu et ts=4 sw=4:
