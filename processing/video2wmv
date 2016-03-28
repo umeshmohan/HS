@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ffmpeg -i "$1" -c:v wmv2 -q:v 2 -threads 0 -pix_fmt yuv420p "${1%.*}wmv"

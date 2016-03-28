@@ -12,6 +12,14 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 
+namespace ffmpeg {
+    extern "C" {
+    #include <libavcodec/avcodec.h>
+    #include <libavformat/avformat.h>
+    #include <libswscale/swscale.h>
+    }
+}
+
 using namespace std;
 
 extern float MAX_DISTANCE, DISPLAY_SCALE;

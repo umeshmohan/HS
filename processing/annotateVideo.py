@@ -34,7 +34,7 @@ def ffmpegReadPipe(file_path):
 
 def ffmpegWritePipe(file_path, width, height):
     ffmpeg_command = ['ffmpeg', '-y',
-                      '-r', '5',
+                      '-r', '20',
                       '-f', 'image2pipe',
                       '-vcodec', 'png',
                       '-s', str(width)+'x'+str(height),
@@ -167,16 +167,16 @@ if __name__ == '__main__':
                                    'color':(1,0,0,0.5),
                                    'width':line_width,
                                    'legend_text':thorax_legend,
-                                   'legend_position':(20,20),
+                                   'legend_position':(20,30),
                                    },
                                   {'from_to':head_points,
                                    'color':(1,1,0,0.5),
                                    'width':line_width,
                                    'legend_text':head_legend,
-                                   'legend_position':(20,50)
+                                   'legend_position':(20,60)
                                    },
                                   {'legend_text':time,
-                                   'legend_position':(20,700),
+                                   'legend_position':(20,height-100),
                                    'color':(1,1,1,0.5)})
         if args.imageseq:
             putFrame(output_dir + "/%05d.png" % frame_number, marked_frame)

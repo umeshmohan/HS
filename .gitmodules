@@ -1,0 +1,3 @@
+[submodule "digitizationPython/opencvLinuxPythonBinary"]
+	path = digitizationPython/opencvLinuxPythonBinary
+	url = https://github.com/umeshmohan/opencvLinuxPythonBinary.git
