@@ -1,0 +1,3 @@
+Code for coverting commented .csv to uncommented .csv
+
+sed -e '/^#/d' a.csv >> b.csv

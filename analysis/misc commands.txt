@@ -1,0 +1,3 @@
+#Code for removing comment lines in csv 
+
+sed -e '/^#/d' a.csv >> b.csv
