@@ -9,39 +9,6 @@ import cairo
 script_dir = path.dirname(path.realpath(__file__))
 ffmpeg = path.join(script_dir, "ffmpeg")
 
-def getVideoInfo(file_path):
-    temp=Popen([ffmpeg, '-i', file_path], stdout=PIPE, stderr=PIPE)
-    stdout, stderr = temp.communicate()
-    stream0_info = stderr.decode('UTF-8')
-                   .split("Stream #")[1].split("\n")[0].split(", ")
-    fps = None
-    for info in stream0_info:
-        if info.count('x') == 1:
-            [width, height] = [int(x) for x in info.split('x')]
-        if info.count('fps') == 1:
-            fps = int(info.split(" fps")[0])
-        if info.count('tbr') == 1:
-            tbr = int(float(info.split(" tbr")[0]
-                            .replace('M', 'e6').replace('k', 'e3')))
-    if fps is None:
-        fps = tbr
-    return width, height, fps
-
-def ffmpegReadPipe(file_path):
-    ffmpeg_command = [ffmpeg,
-                      '-i', file_path,
-                      '-f', 'image2pipe',
-                      '-pix_fmt', 'gray16le',
-                      '-vcodec', 'rawvideo',
-                      '-threads', '0',
-                      '-']
-    dev_null = open(devnull, 'w')
-    return Popen(ffmpeg_command, stdout=PIPE, stderr=dev_null)
-
-def getFrame(ffmpeg_pipe, width, height):
-    return np.fromstring(ffmpeg_pipe.stdout.read(width*height*2), 
-                         dtype=np.uint16)
-
 def ffmpegWritePipe(file_path, width, height):
     ffmpeg_command = ['ffmpeg', '-y',
                       '-r', '20',

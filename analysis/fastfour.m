@@ -1,16 +1,8 @@
-% This function outputs frequency vs. amplitude plot of an input given time series
-% The function requires the following inputs
-% signal=times series data
-% sam=frequency of sampling
+function [frequency_array' signal_fft_abs] = fastfour(signal, sample_rate);
+%Returns a fft of input signal
 %
-
-function [fouranal]=fastfour(signal,sam);
-Sample_rate=sam;
-n=(length(signal));
-fftsignal=fft(signal,n);
-
-%abs_fourier_transform=abs(fftsignal)./(n/2);
-abs_fourier_transform=abs(fftsignal)./(length(fftsignal)/2);
-
-frequency=0:sam/n:sam-1/n;
-fouranal=[frequency' abs_fourier_transform];
+    n = (length(signal));
+    signal_fft = fft(signal, n);
+    signal_fft_abs = abs(signal_fft) ./ (length(signal_fft) / 2);
+    frequency_array = 0:sam/n:sam-1/n;
+end
