@@ -54,7 +54,7 @@ same (multiple of radius of blob)",
     std::cout.rdbuf(out.rdbuf());
     
     cv::VideoCapture video_in_capture = OpenVideo(in_file_name);
-    const int MAX_FRAMES = video_in_capture.get(CV_CAP_PROP_FRAME_COUNT);
+    const int MAX_FRAMES = video_in_capture.get(cv::CAP_PROP_FRAME_COUNT);
     vector<vector<cv::Point> > detected_point_list(MAX_FRAMES, 
                                                    vector<cv::Point>(4));
 
