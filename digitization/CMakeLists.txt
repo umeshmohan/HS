@@ -1,6 +1,4 @@
 cmake_minimum_required(VERSION 2.8)
-set( OpenCV_DIR /home/opencv/share/OpenCV )
-set( Qt_DIR /usr/lib/x86_64-linux-gnu/cmake )
 project( HSD )
 find_package( OpenCV REQUIRED )
 find_package( Qt5Core REQUIRED )
