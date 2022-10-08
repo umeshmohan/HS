@@ -39,7 +39,29 @@ def downloadLatest(URL, file_name):
 def extractffmpeg():
     print("Extracting ffmpeg from archive")
     with tarfile.open(ffmpeg_linux_file_name,'r:xz') as ffmpeg_tar_file:
-        ffmpeg_tar_file.extractall()
+        
+        import os
+        
+        def is_within_directory(directory, target):
+            
+            abs_directory = os.path.abspath(directory)
+            abs_target = os.path.abspath(target)
+        
+            prefix = os.path.commonprefix([abs_directory, abs_target])
+            
+            return prefix == abs_directory
+        
+        def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+        
+            for member in tar.getmembers():
+                member_path = os.path.join(path, member.name)
+                if not is_within_directory(path, member_path):
+                    raise Exception("Attempted Path Traversal in Tar File")
+        
+            tar.extractall(path, members, numeric_owner=numeric_owner) 
+            
+        
+        safe_extract(ffmpeg_tar_file)
     ffmpeg_dir = None
     for dir_content in listdir("."):
         if path.isdir(path.join(".", dir_content)) and dir_content.startswith("ffmpeg"):
